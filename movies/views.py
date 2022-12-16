@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Movie
 
@@ -39,5 +39,12 @@ def detail(req, id):
 def add(req):
     title = req.POST.get('title')
     year = req.POST.get('year')
-    print(title, year)
+    
+    # print(title, year)
+
+    if year and title:
+        movie = Movie(title=title, year=year)
+        movie.save()
+        return HttpResponseRedirect('/movies')
+
     return render(req, 'movies/add.html') 
