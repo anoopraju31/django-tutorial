@@ -48,3 +48,10 @@ def add(req):
         return HttpResponseRedirect('/movies')
 
     return render(req, 'movies/add.html') 
+
+
+def delete(req, id):
+    Movie.objects.get(pk=id).delete()
+  
+    return HttpResponseRedirect('/movies')
+ 
