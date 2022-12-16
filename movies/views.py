@@ -35,3 +35,9 @@ def home(req):
 def detail(req, id):
     data = Movie.objects.get(pk=id)
     return render(req, 'movies/detail.html', {'movie': data})
+
+def add(req):
+    title = req.POST.get('title')
+    year = req.POST.get('year')
+    print(title, year)
+    return render(req, 'movies/add.html') 
