@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from .models import Movie
 
@@ -51,7 +51,11 @@ def add(req):
 
 
 def delete(req, id):
-    Movie.objects.get(pk=id).delete()
-  
+    try:
+        movie = Movie.objects.get(pk=id)
+    except:
+        raise Http404('Movie Doesnot exit')
+
+    movie.delete()
     return HttpResponseRedirect('/movies')
  
